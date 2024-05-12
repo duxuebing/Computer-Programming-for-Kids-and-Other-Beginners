@@ -1,3 +1,4 @@
+# 正弦曲线
 import pygame,sys
 import math  # 导入数学函数，包括sin()
 pygame.init()
