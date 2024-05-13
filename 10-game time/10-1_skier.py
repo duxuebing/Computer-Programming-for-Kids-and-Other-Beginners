@@ -1,16 +1,13 @@
-import pygame, sys, random
-skier_images = ["skier_down.png", "skier_right1.png",
-               "skier_right2.png", "skier_left2.png",
-               "skier_left1.png"]
-class SkierClass(pygame.sprite.Sprite):  #(本行及以下6行) 创建滑雪者
+import pygame,sys,random
+skier_images = ["skier_down.png","skier_right1.png","skier_right2.png","skier_left2.png","skier_left2.png"]
+class SkierClass(pygame.sprite.Sprite):  # (本行及以下6行) 创建滑雪者
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-
         self.image = pygame.image.load("skier_down.png")
         self.rect = self.image.get_rect()
-        self.rect.center = [320, 100]
+        self.rect.center = [320,100]
         self.angle = 0
-    def turn(self, direction): # (本行及以下9行) 滑雪者转向
+    def turn(self, direction):   # (本行及以下9行) 滑雪者转向
         self.angle = self.angle + direction
         if self.angle < -2: self.angle = -2
         if self.angle > 2: self.angle = 2
@@ -20,12 +17,12 @@ class SkierClass(pygame.sprite.Sprite):  #(本行及以下6行) 创建滑雪者
         self.rect.center = center
         speed = [self.angle, 6 - abs(self.angle) * 2]
         return speed
-    def move(self, speed): # (本行及以下3行) 滑雪者左右移动
+    def move(self, speed):  # (本行及以下3行) 滑雪者左右移动
         self.rect.centerx = self.rect.centerx + speed[0]
         if self.rect.centerx < 20: self.rect.centerx = 20
         if self.rect.centerx > 620: self.rect.centerx = 620
-class ObstacleClass(pygame.sprite.Sprite):  # (本行及以下8行) 创建树和小旗
-    def __init__(self, image_file, location, obs_type):
+class ObstacleClass(pygame.sprite.Sprite):  # （本行及以下8行） 创建树和小旗
+    def __init__(self,image_file, location, obs_type):
         pygame.sprite.Sprite.__init__(self)
         self.image_file = image_file
         self.image = pygame.image.load(image_file)
@@ -33,17 +30,17 @@ class ObstacleClass(pygame.sprite.Sprite):  # (本行及以下8行) 创建树和
         self.rect.center = location
         self.obs_type = obs_type
         self.passed = False
-    def update(self):  # (本行及以下2行) 让场景向上滚
+    def update(self):  # （本行及以下2行）让场景向上滚
         global speed
         self.rect.centery -= speed[1]
         if self.rect.centery < -32: # (本行及以下1行) 删除从屏幕上方滚下的障碍物
             self.kill()
-def create_map(): # (本行及以下13行) 创建一个窗口，包含随机的树和小旗
+def create_map():  # （本行及以下13行）创建一个窗口，包含随机的树和小棋
     global obstacles
     locations = []
     for i in range(10):
-        row = random.randint(0, 9)
-        col = random.randint(0, 9)
+        row = random.randint(0,9)
+        col = random.randint(0,9)
         location = [col * 64 + 20, row * 64 + 20 + 640]
         if not (location in locations):
             locations.append(location)
@@ -52,7 +49,7 @@ def create_map(): # (本行及以下13行) 创建一个窗口，包含随机的�
             elif obs_type == "flag": img = "skier_flag.png"
             obstacle = ObstacleClass(img, location, obs_type)
             obstacles.add(obstacle)
-def animate():  # (本行及以下5行) 重绘屏幕
+def animate():  # （本行及以下5行）重绘屏幕
     screen.fill([255, 255, 255])
     obstacles.draw(screen)
     screen.blit(skier.image, skier.rect)
@@ -68,10 +65,10 @@ map_position = 0
 points = 0
 create_map()
 font = pygame.font.Font(None, 50)
-running = True  # (本行及以下1行) 开始主循环
+running = True  # （本行及以下1行） 开始主循环
 while running:
-    clock.tick(30) # <---- 图形每秒更新30次
-    for event in pygame.event.get():  # (本行及以下7行) 检查是否按键或窗口是否关闭
+    clock.tick(30) # 图形每秒更新30次
+    for event in pygame.event.get():  # （本行及以下7行）检查是否按键或窗口是否关闭
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
@@ -79,12 +76,12 @@ while running:
                 speed = skier.turn(-1)
             elif event.key == pygame.K_RIGHT:
                 speed = skier.turn(1)
-    skier.move(speed)  # <---- 滚动场景
-    map_position += speed[1] # <---- 滚动场景
-    if map_position >= 640: # (本行及以下2行) (创建包含场景的新窗口
+    skier.move(speed) # 滚动场景
+    map_position += speed[1] # 滚动场景
+    if map_position >= 640: #（本行及以下2行）创建包含场景的新窗口
         create_map()
         map_position = 0
-    hit = pygame.sprite.spritecollide(skier, obstacles, False)  #(本行及以下13行) 检查是否碰到树或得到小旗
+    hit = pygame.sprite.spritecollide(skier, obstacles, False)  # （本行及以下13行） 检查是否碰到树或得到小棋
     if hit:
         if hit[0].obs_type == "tree" and not hit[0].passed:
             points = points - 100
@@ -99,6 +96,11 @@ while running:
             points += 10
             hit[0].kill()
     obstacles.update()
-    score_text = font.render("Score: " + str(points), 1, (0, 0, 0)) # <---- 显示得分
+    score_text = font.render("Score: " + str(points), 1, (0,0,0))  # 显示得分
     animate()
 pygame.quit()
+
+
+
+
+

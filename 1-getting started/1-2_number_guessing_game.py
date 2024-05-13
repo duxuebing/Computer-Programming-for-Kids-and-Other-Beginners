@@ -1,7 +1,9 @@
+# 1-2 猜数字游戏
 import random
 secret = random.randint(1,100)
 guess = 0 # 选一个神秘数字
 tries = 0
+
 print("AHOY! I'm the Dread Pirate Roberts, and I have a secret!")
 print("It is a number from 1 to 100. I'll give you 6 tries.")
 
@@ -11,10 +13,19 @@ while guess != secret and tries < 6:
         print("Too low, ye scurvy dog!")
     elif guess > secret:
         print("Too high, landlubber!")
-    tries = tries + 1 
+
+    tries = tries + 1
 
 if guess == secret: # 用掉一次机会（本行及以下4行）当游戏结束时打印消息
     print("AVAST! Ye got it! Found my secret, ye did!")
 else:
     print("No more guesses! Better luck next time, matey!")
     print("The secret number was", secret)
+
+"""
+Note:
+
+random - 生成伪随机数
+random.randint(a,b)
+返回随机整数 N 满足 a <= N <= b.
+"""
