@@ -39,6 +39,7 @@ print("Now, I'm going to add some stuff on my hot dog.")
 myDog.addCondiment("ketchup")
 myDog.addCondiment("mustard")
 print(myDog)
+
 # myDog = HotDog()
 # print(myDog.cooked_level)
 # print(myDog.cooked_string)
